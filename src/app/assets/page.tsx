@@ -1,16 +1,13 @@
+import { AssetsSync } from "@/components/assets-sync";
+import { WalletList } from "@/components/wallet-list";
+import { getAssets, getMyWallet } from "@/queries/queries";
 import { 
-  Button, 
   Table, 
   TableBody, 
-  TableCell, 
   TableHead, 
   TableHeadCell, 
-  TableRow  
 } from "flowbite-react";
-import { AssetShow } from "../components/asset-show";
-import Link from "next/link";
-import { WalletList } from "../components/wallet-list";
-import { getAssets, getMyWallet } from "../queries/queries";
+import { TableAssetRow } from "./table-asset-row";
 
 interface AssetsListPageProps {
   searchParams: Promise<{ walletId: string }>
@@ -18,8 +15,7 @@ interface AssetsListPageProps {
 
 export default async function AssetsListPage({ searchParams }: AssetsListPageProps) {
   const { walletId } = await searchParams;
-  const assets = await getAssets();
-
+  
   if(!walletId) {
     return <WalletList />
   }
@@ -29,7 +25,9 @@ export default async function AssetsListPage({ searchParams }: AssetsListPagePro
   if(!wallet) {
     return <WalletList />
   }
- 
+  
+  const assets = await getAssets();
+
   return (
     <div className="flex flex-col space-y-5 flex-grow mt-5">
       <article className="format">
@@ -44,19 +42,16 @@ export default async function AssetsListPage({ searchParams }: AssetsListPagePro
           </TableHead>
           <TableBody>
             {assets.map(asset => (
-              <TableRow key={asset._id}>
-                <TableCell>
-                  <AssetShow asset={asset} />
-                </TableCell>
-                <TableCell>$ {asset.price}</TableCell>
-                <TableCell>
-                  <Button color="light" as={Link} href={`/assets/${asset.symbol}?walletId=${walletId}`}>Buy/Sell</Button>
-                </TableCell>
-              </TableRow>
+              <TableAssetRow 
+                key={asset._id}
+                asset={asset}
+                walletId={walletId}
+              />
             ))}
           </TableBody>
         </Table>
       </div>
+      <AssetsSync symbols={assets.map(asset => asset.symbol)}/>
     </div>
   );
 }

@@ -1,3 +1,8 @@
+import { AssetShow } from "@/components/asset-show";
+import { OrderStatusBadge } from "@/components/order-status-badge";
+import { OrderTypeBadge } from "@/components/order-type-badge";
+import { WalletList } from "@/components/wallet-list";
+import { getMyWallet, getWalletOrders } from "@/queries/queries";
 import { 
   Table, 
   TableBody, 
@@ -6,11 +11,6 @@ import {
   TableHeadCell, 
   TableRow  
 } from "flowbite-react";
-import { AssetShow } from "../components/asset-show";
-import { OrderStatusBadge } from "../components/order-status-badge";
-import { OrderTypeBadge } from "../components/order-type-badge";
-import { WalletList } from "../components/wallet-list";
-import { getMyWallet, getWalletOrders } from "../queries/queries";
 
 interface OrdersListPageProps {
   searchParams: Promise<{ walletId: string }>

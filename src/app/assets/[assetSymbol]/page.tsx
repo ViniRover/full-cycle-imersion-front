@@ -1,11 +1,12 @@
-import { AssetShow } from "@/app/components/asset-show";
-import { OrderForm } from "@/app/components/order-form";
-import { TabsItem } from "@/app/components/tabs";
-import { OrderType } from "@/app/models";
 import { Card, Tabs } from "flowbite-react";
 import { AssetChartComponent } from "./asset-chart-component";
-import { WalletList } from "@/app/components/wallet-list";
-import { getAsset, getMyWallet } from "@/app/queries/queries";
+import { WalletList } from "@/components/wallet-list";
+import { getAsset, getMyWallet } from "@/queries/queries";
+import { AssetShow } from "@/components/asset-show";
+import { TabsItem } from "@/components/tabs";
+import { OrderForm } from "@/components/order-form";
+import { OrderType } from "@/models";
+
 
 interface AssetDashboardProps {
   params: Promise<{ assetSymbol: string }>;
@@ -41,7 +42,7 @@ export default async function AssetDashboard({
           <Card>
             <Tabs>
               <TabsItem active title={<div className="text-blue-700">Buy</div>}>
-                <OrderForm 
+                <OrderForm
                   asset={asset}
                   walletId={walletId}
                   type={OrderType.BUY}

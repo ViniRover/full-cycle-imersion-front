@@ -6,7 +6,7 @@ export async function getMyWallet(walletId: string): Promise<Wallet | null> {
   if(!response.ok) {
     return null;
   }
-
+  
   return response.json();
 }
 
