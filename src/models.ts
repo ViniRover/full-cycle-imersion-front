@@ -8,6 +8,13 @@ export type Asset = {
   updatedAt: Date;
 }
 
+export type AssetDaily = {
+  _id: string;
+  asset: Asset;
+  price: number;
+  date: string;
+}
+
 export type WalletAsset = {
   _id: string;
   asset: Asset;

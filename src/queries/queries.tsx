@@ -1,4 +1,4 @@
-import { Asset, Order, Wallet } from "../models";
+import { Asset, AssetDaily, Order, Wallet } from "../models";
 
 export async function getMyWallet(walletId: string): Promise<Wallet | null> {
   const response = await fetch(`http://localhost:3000/wallets/${walletId}`);
@@ -22,5 +22,10 @@ export async function getWalletOrders(walletId: string): Promise<Order[]> {
 
 export async function getAsset(symbol: string): Promise<Asset> {
   const response = await fetch(`http://localhost:3000/assets/${symbol}`);
+  return response.json();
+}
+
+export async function getAssetDailies(symbol: string): Promise<AssetDaily[]> {
+  const response = await fetch(`http://localhost:3000/assets/${symbol}/dailies`);
   return response.json();
 }
